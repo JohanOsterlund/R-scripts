@@ -1,0 +1,32 @@
+### Function for resampling the data, which will duplicate some observations and remove some observations. 
+# If you want to keep the data that is not used, use group_inds and repl_inds to find the indices that are missing in repl_inds.  
+#df = data to be used
+#col = identifier column used for resampling 
+
+resample_data <- function(df, col){ 
+  
+  start_array <- df[,col] # data to be resampled
+  uni.vals <- unique(as.character(df[,col])) #unique values of that array                     
+  print(uni.vals)
+  
+  
+  # If there are different groups in the start array, locate the indices of each groups:
+  group_inds <- lapply(uni.vals, function(x){
+    return(which(start_array==x))
+    })
+  
+  # One index per group is randomly chosen, then another index is randomly chosen from the same population (replace = TRUE).
+  
+  # Note that this will not be consistent unless you set seed first (in terms of reproducibility).
+  repl_inds <- lapply(group_inds, function(l){
+    print(l)
+    shuffled_l <- sample(as.character(l), size = length(l), replace = TRUE)
+    print(shuffled_l)
+    return(shuffled_l)
+    })
+  
+  #Replace with new data
+  df[unlist(group_inds),] <- df[unlist(repl_inds),] 
+  
+  return(df)
+  }
