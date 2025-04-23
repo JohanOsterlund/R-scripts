@@ -2,7 +2,7 @@
 # Create a mock dataframe with numerical dummy values (sampled from the exponential distribution) and made up gene names (4 letters). 
 # Resulting dataframe will have "n_genes" number of genes, independent variables determined by entered column names, and a random number of observations per gene from "1" to "nrow_max". 
 
-mock_df <- function(n_genes, nrow_max=3, cnames){
+df_mock <- function(n_genes, nrow_max=3, cnames){
   
   fill.matrix <- function(expr, nrow, ncol) {
     return(
@@ -35,5 +35,4 @@ mock_df <- function(n_genes, nrow_max=3, cnames){
   return(tot_df)
 }
 
-random_df <- mock_df(n_genes = 5, nrow_max = 3,cnames = c("One", "Two", "Three"))
-random_list
+random_df <- df_mock(n_genes = 5, nrow_max = 3,cnames = c("One", "Two", "Three"))
