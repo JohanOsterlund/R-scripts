@@ -3,7 +3,7 @@
 #df = data to be used
 #col = identifier column used for resampling 
 
-resample_data <- function(df, col){ 
+df_resample <- function(df, col){ 
   
   start_array <- df[,col] # data to be resampled
   uni.vals <- unique(as.character(df[,col])) #unique values of that array                     
