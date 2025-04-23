@@ -1,3 +1,7 @@
+###
+# Create a mock dataframe with numerical dummy values (sampled from the exponential distribution) and made up gene names (4 letters). 
+# Resulting dataframe will have "n_genes" number of genes, independent variables determined by entered column names, and a random number of observations per gene from "1" to "nrow_max". 
+
 mock_df <- function(n_genes, nrow_max=3, cnames){
   
   fill.matrix <- function(expr, nrow, ncol) {
