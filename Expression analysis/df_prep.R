@@ -1,6 +1,6 @@
 # A script for preparing a data frame. 
 # Function 1 (rm_values) removes values that are either NA or zeros based on the given list of names.
-# Function 2 (df_prep) sends the df to function 1 and updates the df if Function 1 compiled any row indices to remove. 
+# Function 2 (prep_df) sends the df to function 1 and updates the df if Function 1 compiled any row indices to remove. 
 
 # Function 1
 rm_values <- function(df, namelist, zeros=TRUE, NAs=TRUE){ 
@@ -27,7 +27,7 @@ rm_values <- function(df, namelist, zeros=TRUE, NAs=TRUE){
 } 
 
 # Function 2
-df_prep <- function(df, names, zeros, NAs){ 
+prep_df <- function(df, names, zeros, NAs){ 
   inds <- rm_values(df, names, zeros, NAs)
   if(length(inds)>=1){ 
     message("The following rows will be removed:")
@@ -46,4 +46,4 @@ random_df[1,2] <- 0
 random_df[3,2] <- NA
 random_df[3,4] <- NA
 
-df_prep(random_df, c("One", "Two", "Three"), TRUE, TRUE)
+prep_df(random_df, c("One", "Two", "Three"), TRUE, TRUE)
