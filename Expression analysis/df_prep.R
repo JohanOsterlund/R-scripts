@@ -1,9 +1,7 @@
-# A script for preparing a data frame. 
-# Function 1 (rm_values) removes values that are either NA or zeros based on the given list of names.
-# Function 2 (prep_df) sends the df to function 1 and updates the df if Function 1 compiled any row indices to remove. 
+### A script for preparing a data frame. 
+# Removes values that are NA and/or zeros based on provided arguments and returns the data.
 
-# Function 1
-rm_values <- function(df, namelist, zeros=TRUE, NAs=TRUE){ 
+df_prep <- function(df, zeros=TRUE, NAs=TRUE, namelist=colnames(df)){ 
   
   resultarray <- NULL
   
@@ -15,7 +13,6 @@ rm_values <- function(df, namelist, zeros=TRUE, NAs=TRUE){
   
   if(zeros==TRUE){ 
     all_inds_zero <- unique(unlist(sapply(namelist, function(x){return(which(df[,x]==0))})))
-    print(all_inds_zero)
     if(length(all_inds_zero)>0){
       start <- length(resultarray)+1
       resultarray[start:(start+length(all_inds_zero))] <- all_inds_zero
@@ -23,17 +20,10 @@ rm_values <- function(df, namelist, zeros=TRUE, NAs=TRUE){
   
   if(length(resultarray)>0){ # If there are NA and/or zero values, return only the unique row numbers where they exist. 
     all_inds <- unique(resultarray)
-    return(all_inds)}
-} 
-
-# Function 2
-prep_df <- function(df, names, zeros, NAs){ 
-  inds <- rm_values(df, names, zeros, NAs)
-  if(length(inds)>=1){ 
     message("The following rows will be removed:")
-    print(df[inds,])
-    data <- df[-inds,]
-    return(data)
+    print(df[all_inds,])
+    df <- df[-all_inds,]
+    return(df)
   }
   else{
     message("No values to be removed. Returning original data")
@@ -46,4 +36,4 @@ random_df[1,2] <- 0
 random_df[3,2] <- NA
 random_df[3,4] <- NA
 
-prep_df(random_df, c("One", "Two", "Three"), TRUE, TRUE)
+df_prep(random_df, c("One", "Two", "Three"), TRUE, TRUE)
